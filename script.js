@@ -30,61 +30,73 @@ class Hamburger extends AbstractProduct {
   STUFFING_SALAD_CCAL = 20;
   STUFFING_POTATO_CCAL = 20;
 
+  size;
+  stuffing;
+
   constructor(size, stuffing) {
     super();
+
+    if (size !== this.SIZE_LARGE && size !== this.SIZE_SMALL) {
+      throw new Error("Choose the size of your hamburger");
+    } else if (
+      stuffing &&
+      ![this.STUFFING_CHEESE, this.STUFFING_POTATO, this.STUFFING_SALAD].find(
+        stuffing
+      )
+    ) {
+      throw new Error("Invalid stuffing");
+    }
+
     this.size = size;
     this.stuffing = stuffing;
-    _price = 0;
-    _calories = 0;
   }
 
   getSize() {
     return this.size;
   }
+
   getStuffing() {
     return this.stuffing;
   }
-  calculatePrice(_price) {
-    if (!size || !stuffing) {
-      throw new Error("Choose the size of your hamburger and the stuffing");
-    }
+
+  calculatePrice() {
+    let price = 0;
 
     if (this.size === this.SIZE_SMALL) {
-      _price += this.SIZE_SMALL_PRICE;
+      price += this.SIZE_SMALL_PRICE;
     } else if (this.size === this.SIZE_LARGE) {
-      _price += this.SIZE_LARGE_PRICE;
+      price += this.SIZE_LARGE_PRICE;
     }
 
     if (this.stuffing === this.STUFFING_CHEESE) {
-      _price += this.STUFFING_CHEESE_PRICE;
+      price += this.STUFFING_CHEESE_PRICE;
     } else if (this.stuffing === this.STUFFING_POTATO) {
-      _price += this.STUFFING_POTATO_PRICE;
+      price += this.STUFFING_POTATO_PRICE;
     } else if (this.stuffing === this.STUFFING_SALAD) {
-      _price += this.STUFFING_SALAD_PRICE;
+      price += this.STUFFING_SALAD_PRICE;
     }
 
-    return _price;
+    return price;
   }
 
-  calculateCalories(_calories) {
-    if (!size || !stuffing) {
-      throw new Error("Choose the size of your hamburger and the stuffing");
-    }
+  calculateCalories() {
+    let calories = 0;
+
     if (this.size === this.SIZE_SMALL) {
-      _calories += this.SIZE_SMALL_CCAL;
+      calories += this.SIZE_SMALL_CCAL;
     } else if (this.size === this.SIZE_LARGE) {
-      _calories += this.SIZE_LARGE_CCAL;
+      calories += this.SIZE_LARGE_CCAL;
     }
 
     if (this.stuffing === this.STUFFING_CHEESE) {
-      _calories += this.STUFFING_CHEESE_CCAL;
+      calories += this.STUFFING_CHEESE_CCAL;
     } else if (this.stuffing === this.STUFFING_POTATO) {
-      _calories += this.STUFFING_POTATO_CCAL;
+      calories += this.STUFFING_POTATO_CCAL;
     } else if (this.stuffing === this.STUFFING_SALAD) {
-      _calories += this.STUFFING_SALAD_CCAL;
+      calories += this.STUFFING_SALAD_CCAL;
     }
 
-    return _calories;
+    return calories;
   }
 }
 
@@ -97,42 +109,51 @@ class Salad extends AbstractProduct {
   OLIVYE = "olivye";
   CAESAR = "caesar";
 
+  salad;
+  size;
+
   constructor(salad, size) {
     super();
+
+    if (salad !== this.OLIVYE && salad !== this.CAESAR) {
+      throw new Error("Invalid salad");
+    } else if (isNaN(size) || size < 0) {
+      throw new Error("Invalid size");
+    }
+
     this.salad = salad;
     this.size = size;
   }
+
   getSize() {
     return this.size;
   }
+
   getSalad() {
     return this.salad;
   }
+
   calculatePrice() {
-    if (!size || !stuffing) {
-      throw new Error("Choose the size of your hamburger and the stuffing");
-    }
-    let _price = 0;
+    let price = 0;
     if (this.salad === this.OLIVYE) {
-      _price += this.OLIVYE_PRICE * this.size;
+      price += this.OLIVYE_PRICE * this.size;
     } else if (this.salad === this.CAESAR) {
-      _price += this.CAESAR_PRICE * this.size;
+      price += this.CAESAR_PRICE * this.size;
     }
 
-    return _price;
+    return price;
   }
+
   calculateCalories() {
-    let _calories = 0;
-    if (!size || !stuffing) {
-      throw new Error("Choose the size of your hamburger and the stuffing");
-    }
+    let calories = 0;
+
     if (this.salad === this.OLIVYE) {
-      _calories += this.OLIVYE_CCAL * this.size;
+      calories += this.OLIVYE_CCAL * this.size;
     } else if (this.salad === this.CAESAR) {
-      _calories += this.CAESAR_CCAL * this.size;
+      calories += this.CAESAR_CCAL * this.size;
     }
 
-    return _calories;
+    return calories;
   }
 }
 
@@ -145,46 +166,58 @@ class Drink extends AbstractProduct {
   COLA = "cola";
   COFFEE = "coffee";
 
+  drink;
+
   constructor(drink) {
     super();
+
+    if (drink !== this.COLA && drink !== this.COFFEE) {
+      throw new Error("Choose the size of your hamburger and the stuffing");
+    }
+
     this.drink = drink;
   }
+
   getDrink() {
     return this.drink;
   }
+
   calculatePrice() {
-    if (!size || !stuffing) {
-      throw new Error("Choose the size of your hamburger and the stuffing");
-    }
-    let _price = 0;
+    let price = 0;
 
     if (this.drink === this.COLA) {
-      _price += this.COLA_PRICE;
+      price += this.COLA_PRICE;
     } else if (this.drink === this.COFFEE) {
-      _price += this.COFFEE_PRICE;
+      price += this.COFFEE_PRICE;
     }
 
-    return _price;
+    return price;
   }
+
   calculateCalories() {
-    if (!size || !stuffing) {
-      throw new Error("Choose the size of your hamburger and the stuffing");
-    }
-    let _calories = 0;
+    let calories = 0;
 
     if (this.drink === this.COLA) {
-      _calories += this.COLA_CCAL;
+      calories += this.COLA_CCAL;
     } else if (this.drink === this.COFFEE) {
-      _calories += this.COFFEE_CCAL;
+      calories += this.COFFEE_CCAL;
     }
 
-    return _calories;
+    return calories;
   }
 }
 
 class Order {
   _products = [];
+
   constructor(...args) {
+    if (
+      Array.isArray(args) &&
+      args.every((arg) => arg.prototype instanceof AbstractProduct)
+    ) {
+      throw "Invalid product type";
+    }
+
     this._products = args;
   }
 
@@ -194,6 +227,7 @@ class Order {
       0
     );
   }
+
   getAccCalories() {
     return this._products.reduce(
       (acc, cur) => (acc += cur.calculateCalories()),
@@ -214,3 +248,4 @@ console.log(h2.getDrink());
 console.log(h2.calculatePrice());
 console.log(h2.calculateCalories());
 console.log(order.getAccCalories());
+console.log(order.getAccPrice());
